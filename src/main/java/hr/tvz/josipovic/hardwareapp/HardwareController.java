@@ -1,10 +1,10 @@
 package hr.tvz.josipovic.hardwareapp;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,13 +18,37 @@ public class HardwareController {
     }
 
     @GetMapping
-    public List<HardwareDTO> getAlHardware(){
+    public List<HardwareDTO> getAlHardware() {
         return hardwareService.findAll();
     }
 
-    @GetMapping(params = "code")
-    public HardwareDTO getStudentByJMBAG(@RequestParam final String code){
-        return hardwareService.findbyCode(code);
+    @GetMapping("/{code}")
+    public ResponseEntity<HardwareDTO> getHardwareByCode(@PathVariable final String code) {
+        return hardwareService.findbyCode(code).map(
+                studentDto -> ResponseEntity.status(HttpStatus.OK).body(studentDto)
+        ).orElseGet(
+                () -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+
+        );
+    }
+
+
+    @PostMapping
+    public ResponseEntity<HardwareDTO> insertHardware(@Valid @RequestBody final HardwareCommand cmd) {
+        return hardwareService.insert(cmd)
+                .map(
+                        studentDto -> ResponseEntity.status(HttpStatus.CREATED).body(studentDto)
+                ).orElseGet(
+                        () -> ResponseEntity.status(HttpStatus.CONFLICT).build()
+                );
+
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{code}")
+    public void delete(@PathVariable String code){
+        hardwareService.deleteByCode(code);
     }
 
 }
+
