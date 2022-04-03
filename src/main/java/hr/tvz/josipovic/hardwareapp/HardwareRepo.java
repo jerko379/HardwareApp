@@ -10,9 +10,9 @@ import java.util.Optional;
 public class HardwareRepo implements HardwareRepository {
 
     private final List<Hardware> hardwareList = List.of(new Hardware[]{
-            new Hardware("Nvidia GTX 3080", 2000.0, "NGTX3080", Hardware.Type.GPU, 6),
-            new Hardware("Nvidia GTX 2070", 2000.0, "NGTX2070", Hardware.Type.GPU, 11),
-            new Hardware("Intel i5 7300HQ", 2000.0, "I57300HQ", Hardware.Type.CPU, 3)
+            new Hardware("Nvidia RTX 3080", 4000.0, "NRTX3080", Hardware.Type.GPU, 3),
+            new Hardware("Nvidia RTX 2070", 6000.0, "NRTX2070", Hardware.Type.GPU, 2),
+            new Hardware("Intel i5 7300HQ", 3000.0, "I57300HQ", Hardware.Type.CPU, 2),
     });
 
     @Override

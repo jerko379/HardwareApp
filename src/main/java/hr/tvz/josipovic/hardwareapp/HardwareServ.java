@@ -23,10 +23,21 @@ public class HardwareServ implements HardwareService{
 
     @Override
     public HardwareDTO findbyCode(String code) {
-        return repo.findByCode(code).map(this::mapHardwareToDto).orElse(null);
+
+        //return repo.findByCode(code).map(this::mapHardwareToDto).orElse(null);
+
+        // 1.LAB Z
+        HardwareDTO vrHardver = repo.findByCode(code).map(this::mapHardwareToDto).orElse(null);
+        Hardware cHardver = repo.findByCode(code).orElse(null);
+        if (cHardver.getQuantity() < 3 && cHardver.getType()== Hardware.Type.GPU) {
+            vrHardver.setPrice(vrHardver.getPrice()*2);
+        }
+        return vrHardver;
     }
 
     private HardwareDTO mapHardwareToDto(Hardware hw) {
         return new HardwareDTO(hw.getName(), hw.getPrice());
     }
+
+
 }
