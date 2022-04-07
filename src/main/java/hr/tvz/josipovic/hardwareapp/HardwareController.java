@@ -25,7 +25,7 @@ public class HardwareController {
     @GetMapping("/{code}")
     public ResponseEntity<HardwareDTO> getHardwareByCode(@PathVariable final String code) {
         return hardwareService.findbyCode(code).map(
-                studentDto -> ResponseEntity.status(HttpStatus.OK).body(studentDto)
+                hardwareDTO -> ResponseEntity.status(HttpStatus.OK).body(hardwareDTO)
         ).orElseGet(
                 () -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()
 
@@ -37,7 +37,7 @@ public class HardwareController {
     public ResponseEntity<HardwareDTO> insertHardware(@Valid @RequestBody final HardwareCommand cmd) {
         return hardwareService.insert(cmd)
                 .map(
-                        studentDto -> ResponseEntity.status(HttpStatus.CREATED).body(studentDto)
+                        hardwareDTO -> ResponseEntity.status(HttpStatus.CREATED).body(hardwareDTO)
                 ).orElseGet(
                         () -> ResponseEntity.status(HttpStatus.CONFLICT).build()
                 );

@@ -9,8 +9,8 @@ public class HardwareRepo implements HardwareRepository {
 
 
     private final List<Hardware> hardwareList = new ArrayList<>(List.of(new Hardware[]{
-            new Hardware("Nvidia GTX 3080", 2000.0, "NGTX3080", Hardware.Type.GPU, 6),
-            new Hardware("Nvidia GTX 2070", 2000.0, "NGTX2070", Hardware.Type.GPU, 11),
+            new Hardware("Nvidia RTX 3080", 2000.0, "NRTX3080", Hardware.Type.GPU, 6),
+            new Hardware("Nvidia RTX 2070", 2000.0, "NRTX2070", Hardware.Type.GPU, 11),
             new Hardware("Intel i5 7300HQ", 2000.0, "I57300HQ", Hardware.Type.CPU, 3)
     }));
 
@@ -39,6 +39,5 @@ public class HardwareRepo implements HardwareRepository {
     @Override
     public void deleteByCode(String code) {
         hardwareList.removeIf(hw -> Objects.equals(hw.getCode(), code));
-        System.out.println(code);
     }
 }

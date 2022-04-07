@@ -31,6 +31,7 @@ public class HardwareServ implements HardwareService{
         return new HardwareDTO(hw.getName(), hw.getPrice());
     }
     @Override
+
     public Optional<HardwareDTO> insert(HardwareCommand cmd) {
         return repo.insert(new Hardware(cmd.getName(), cmd.getPrice(), cmd.getCode(), cmd.getType(), cmd.getQuantity())).map(this::mapHardwareToDto);
     }
