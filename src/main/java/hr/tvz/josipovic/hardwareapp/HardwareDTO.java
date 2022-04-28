@@ -9,8 +9,10 @@ public class HardwareDTO {
 
     private String name;
     private Double price;
+    private String code;
 
-    public HardwareDTO(String name, Double price) {
+    public HardwareDTO(String name, Double price,String code) {
+        this.code=code;
         this.name = name;
         this.price = price;
     }

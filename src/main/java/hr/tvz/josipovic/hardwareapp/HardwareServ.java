@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 @Service
 public class HardwareServ implements HardwareService{
 
-    private final HardwareRepo repo;
+    private final JdbcHardwareRepo repo;
 
-    public HardwareServ(HardwareRepo repo) {
+    public HardwareServ(JdbcHardwareRepo repo) {
         this.repo = repo;
     }
 
@@ -22,13 +22,14 @@ public class HardwareServ implements HardwareService{
         return repo.findAll().stream().map(this::mapHardwareToDto).collect(Collectors.toList());
     }
 
+
     @Override
     public Optional<HardwareDTO> findbyCode(String code) {
         return repo.findByCode(code).map(this::mapHardwareToDto);
     }
 
     private HardwareDTO mapHardwareToDto(Hardware hw) {
-        return new HardwareDTO(hw.getName(), hw.getPrice());
+        return new HardwareDTO(hw.getName(), hw.getPrice(),hw.getCode());
     }
     @Override
 
@@ -40,4 +41,6 @@ public class HardwareServ implements HardwareService{
     public void deleteByCode(String code) {
         repo.deleteByCode(code);
     }
+
+
 }
