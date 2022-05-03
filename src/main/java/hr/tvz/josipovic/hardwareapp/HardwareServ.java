@@ -23,6 +23,12 @@ public class HardwareServ implements HardwareService{
     }
 
 
+
+    public List<HardwareDTO> findByString(String str) {
+        return repo.findbyEndString(str).stream().map(this::mapHardwareToDto).collect(Collectors.toList());
+    }
+
+
     @Override
     public Optional<HardwareDTO> findbyCode(String code) {
         return repo.findByCode(code).map(this::mapHardwareToDto);

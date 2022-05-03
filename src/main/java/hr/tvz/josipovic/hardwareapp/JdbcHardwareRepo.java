@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Primary
 @Repository
@@ -39,6 +40,19 @@ public class JdbcHardwareRepo implements HardwareRepository {
     }
 
 
+    public List<Hardware> findbyEndString( String str) {
+        List <Hardware>  stHw = jdbc.query(SELECT_ALL ,this::mapRowtoHardware);
+        stHw = stHw.stream().filter( hw -> hw.getName().endsWith(str)).collect(Collectors.toList());
+        return stHw;
+    }
+
+    public List<Hardware> findbyEndStringDb( String str) {
+        int len = str.length();
+        int from = (str.length() +1) * (-1);
+        return jdbc.query("Select  *  from hardware where name = substring(name from ? for ?) " ,  this::mapRowtoHardware, from, len);
+    }
+
+
     @Override
     public Optional<Hardware> findByCode(String  code) {
         try{
@@ -48,6 +62,8 @@ public class JdbcHardwareRepo implements HardwareRepository {
             return Optional.empty();
         }
     }
+
+
 
 
     @Override

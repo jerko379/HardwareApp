@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("hardware")
@@ -22,10 +23,19 @@ public class HardwareController {
     @GetMapping
     public List<HardwareDTO> getAlHardware() {
         System.out.println("GET");
-        return hardwareService.findAll();
+
     }
 
 
+
+
+    /*
+    @GetMapping(params  = "str")
+    public ResponseEntity<List<HardwareDTO>> getHardwarebyString(@RequestParam final String str) {
+        return hardwareService.findByString(str).forEach(hardwareDTO
+    }
+
+     */
 
     @GetMapping("/{code}")
     public ResponseEntity<HardwareDTO> getHardwareByCode(@PathVariable final String code) {
@@ -38,6 +48,7 @@ public class HardwareController {
 
 
     }
+
 
 
     @PostMapping
