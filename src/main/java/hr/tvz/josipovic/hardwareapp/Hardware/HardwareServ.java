@@ -1,4 +1,4 @@
-package hr.tvz.josipovic.hardwareapp;
+package hr.tvz.josipovic.hardwareapp.Hardware;
 
 import org.springframework.stereotype.Service;
 
@@ -40,7 +40,12 @@ public class HardwareServ implements HardwareService{
     @Override
 
     public Optional<HardwareDTO> insert(HardwareCommand cmd) {
-        return repo.insert(new Hardware(cmd.getName(), cmd.getPrice(), cmd.getCode(), cmd.getType(), cmd.getQuantity())).map(this::mapHardwareToDto);
+        return repo.insert(new Hardware(cmd.getName(), cmd.getPrice(), cmd.getCode(), cmd.getType(), cmd.getStock())).map(this::mapHardwareToDto);
+    }
+
+    @Override
+    public Optional<HardwareDTO> update(final String code, final HardwareCommand cmd) {
+        return repo.update(code, new Hardware(cmd.getName(), cmd.getPrice(), cmd.getCode(), cmd.getType(), cmd.getStock())).map(this::mapHardwareToDto);
     }
 
     @Override

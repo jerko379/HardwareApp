@@ -1,4 +1,4 @@
-package hr.tvz.josipovic.hardwareapp;
+package hr.tvz.josipovic.hardwareapp.Hardware;
 
 
 import lombok.Data;

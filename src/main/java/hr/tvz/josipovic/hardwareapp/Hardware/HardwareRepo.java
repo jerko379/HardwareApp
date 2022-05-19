@@ -1,5 +1,7 @@
-package hr.tvz.josipovic.hardwareapp;
+package hr.tvz.josipovic.hardwareapp.Hardware;
 
+import hr.tvz.josipovic.hardwareapp.Review.Review;
+import hr.tvz.josipovic.hardwareapp.Type;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,23 +11,28 @@ import java.util.Optional;
 
 
 @Repository
+
 public class HardwareRepo implements HardwareRepository {
 
 
     private final List<Hardware> hardwareList = new ArrayList<>(List.of(new Hardware[]{
-            new Hardware("Nvidia RTX 3080", 2000.0, "NRTX3080", Type.GPU, 6),
-            new Hardware("Nvidia RTX 2070", 3000.0, "NRTX2070", Type.GPU, 11),
-            new Hardware("Intel i5 7300HQ", 4000.0, "I57300HQ", Type.CPU, 3)
+            new Hardware(1,"Nvidia RTX 3080", 2000.0, "NRTX3080", Type.GPU, 6),
+            new Hardware(2,"Nvidia RTX 2070", 3000.0, "NRTX2070", Type.GPU, 11),
+            new Hardware(3,"Intel i5 7300HQ", 4000.0, "I57300HQ", Type.CPU, 3)
     }));
 
 
 
-    private final List<Review> reviewList = new ArrayList<>(List.of(new Review[]{
-            new Review("10/10 would recommend", "buy this very good gpu", "NRTX3080", 5),
-            new Review("2/10 would not recommend", "dont buy this bad gpu", "NRTX2070", 3),
-            new Review("0/10 cpu", "cpu for microwave", "I57300HQ", 2),
-            new Review("0.1/10 cpu", "cpu for toaster", "I57300HQ", 1),
+
+
+     /*final List<Review> reviewList = new ArrayList<>(List.of(new Review[]{
+            new Review(0,"10/10 would recommend", "buy this very good gpu", 5),
+            new Review(1,"2/10 would not recommend", "dont buy this bad gpu", 3),
+            new Review(2,"0/10 cpu", "cpu for microwave",  2),
+            new Review(3,"0.1/10 cpu", "cpu for toaster", 1),
     }));
+
+      */
 
 
 
@@ -42,9 +49,7 @@ public class HardwareRepo implements HardwareRepository {
 
 
 
-    public List<Review> getReviews() {
-        return reviewList;
-    }
+
 
     @Override
     public Optional<Hardware> insert (Hardware hw) {
@@ -58,6 +63,11 @@ public class HardwareRepo implements HardwareRepository {
             hardwareList.add(hw);
             return Optional.of(hw);
         }
+    }
+
+    @Override
+    public Optional<Hardware> update(String code, Hardware updateHw) {
+        return Optional.empty();
     }
 
     @Override

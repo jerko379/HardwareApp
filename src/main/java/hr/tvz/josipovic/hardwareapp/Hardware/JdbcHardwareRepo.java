@@ -1,5 +1,6 @@
-package hr.tvz.josipovic.hardwareapp;
+package hr.tvz.josipovic.hardwareapp.Hardware;
 
+import hr.tvz.josipovic.hardwareapp.Type;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -54,6 +55,31 @@ public class JdbcHardwareRepo implements HardwareRepository {
 
 
     @Override
+    public Optional<Hardware> update(String code, Hardware updatedHw) {
+        int executed = jdbc.update("UPDATE hardware set " +
+                        "name = ?, " +
+                        "code = ?, " +
+                        "tip = ?, " +
+                        "price = ?, " +
+                        "quantity = ? " +
+                        "WHERE code = ?",
+                updatedHw.getName(),
+                updatedHw.getCode(),
+                updatedHw.getType().toString(),
+                updatedHw.getPrice(),
+                updatedHw.getQuantity(),
+                code
+        );
+
+        if(executed > 0){
+            return Optional.of(updatedHw);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+
+    @Override
     public Optional<Hardware> findByCode(String  code) {
         try{
             return Optional.ofNullable(
@@ -70,8 +96,10 @@ public class JdbcHardwareRepo implements HardwareRepository {
     public Optional<Hardware> insert(Hardware hardware) {
         try {
             hardware.setId(saveHardwareDetails(hardware));
+            System.out.println(hardware.getId());
             return Optional.of(hardware);
         } catch (DuplicateKeyException e){
+            System.out.println("Dupe key");
             return Optional.empty();
         }
     }

@@ -1,5 +1,6 @@
-package hr.tvz.josipovic.hardwareapp;
+package hr.tvz.josipovic.hardwareapp.Hardware;
 
+import hr.tvz.josipovic.hardwareapp.Type;
 import lombok.Data;
 
 import javax.validation.constraints.*;
@@ -26,9 +27,9 @@ public class HardwareCommand {
     private Type type;
 
 
-    @NotNull(message = "Quantity must be entered")
-    @PositiveOrZero(message = "Quantity must not be negative")
-    private Integer quantity;
+    @NotNull(message = "Stock must be entered")
+    @PositiveOrZero(message = "Stock must not be negative")
+    private Integer stock;
 
 
 }
