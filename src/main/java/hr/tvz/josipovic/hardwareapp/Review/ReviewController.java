@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("review")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -18,21 +17,18 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_UPDATER"})
     @GetMapping
     public List<ReviewDTO> getAllReviews(){
         return reviewService.getAllReviews();
     }
 
-
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_UPDATER"})
     @GetMapping(params = "code")
     public List<ReviewDTO> getAllReviewsByHardwareCode(@RequestParam String code){
         return reviewService.getAllbyHardwareCode(code);
     }
-
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_UPDATER"})
     @GetMapping(params = "fromto")
     public List<ReviewDTO> getAllbyRating(@RequestParam String fromto){
         Integer from = Integer.parseInt(String.valueOf(fromto.charAt(0)));

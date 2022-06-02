@@ -35,7 +35,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     private boolean isMatchingPassword(String rawPassword, String encryptedPassword) {
-        System.out.println("ssssssssssssssssssssssssssssssssssssssssssssss");
+        System.out.println("----------------------------------------------");
         if(BCrypt.checkpw(rawPassword, encryptedPassword)) {
             System.out.println("It matches");
             return true;

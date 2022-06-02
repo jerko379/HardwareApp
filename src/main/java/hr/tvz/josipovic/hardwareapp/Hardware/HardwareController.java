@@ -20,7 +20,7 @@ public class HardwareController {
     }
 
 
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_UPDATER"})
     @GetMapping
     public List<HardwareDTO> getAlHardware() {
         System.out.println("GET");
@@ -38,7 +38,7 @@ public class HardwareController {
 
      */
 
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_UPDATER"})
     @GetMapping("/{code}")
     public ResponseEntity<HardwareDTO> getHardwareByCode(@PathVariable final String code) {
         return hardwareService.findbyCode(code).map(
@@ -66,7 +66,7 @@ public class HardwareController {
     }
 
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_UPDATER"})
     @PutMapping("/{code}")
     public ResponseEntity<HardwareDTO> updateHardware(@PathVariable String code, @Valid @RequestBody final HardwareCommand updateHardwareCommand){
         return hardwareService.update(code, updateHardwareCommand)

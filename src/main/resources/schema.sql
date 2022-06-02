@@ -1,6 +1,8 @@
+
+
 create table if not exists hardware
 (
-    id       identity,
+    id       identity  not null unique ,
     code     varchar(50)  not null unique,
     name     varchar(100) not null,
     tip      varchar(50)  not null,
@@ -11,7 +13,7 @@ create table if not exists hardware
 
 create table if not exists review
 (
-    id          identity,
+    id          identity not null unique,
     title       varchar(500) not null,
     content     varchar(500) not null,
     rating      number       not null,
@@ -21,13 +23,13 @@ create table if not exists review
 
 create table if not exists usr
 (
-    id       identity,
+    id       identity not null unique,
     username varchar(100) not null unique,
     pass varchar(1000) not null
 );
 create table if not exists authority
 (
-    id             identity,
+    id             identity not null unique,
     authority_name varchar(100) not null unique
 );
 create table if not exists user_authority
