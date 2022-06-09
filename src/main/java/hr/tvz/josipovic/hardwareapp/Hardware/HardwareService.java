@@ -10,6 +10,7 @@ public interface HardwareService
     Optional<HardwareDTO> insert(HardwareCommand cmd);
     Optional<HardwareDTO> update(String code, HardwareCommand updatedHardwareCommand);
     void deleteByCode(String code);
+    void informationOnStock();
 
 
 }

@@ -75,6 +75,11 @@ public class HardwareRepo implements HardwareRepository {
         hardwareList.removeIf(hw -> Objects.equals(hw.getCode(), code));
     }
 
+    @Override
+    public Optional<Hardware> updateQuantity(String code, Integer quantity) {
+        return Optional.empty();
+    }
+
     public Optional<Hardware> updateQuantity(String code, int nQuantity) {
         Hardware hardware = hardwareList.stream().filter(hw -> hw.getCode().equals(code)).findFirst().orElse(null);
         if(hardware == null) {

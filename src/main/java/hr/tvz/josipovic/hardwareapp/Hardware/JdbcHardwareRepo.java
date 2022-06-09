@@ -78,6 +78,22 @@ public class JdbcHardwareRepo implements HardwareRepository {
         }
     }
 
+    @Override
+    public Optional<Hardware> updateQuantity(String code, Integer quantity) {
+        int executed = jdbc.update("UPDATE hardware set " +
+                        "quantity = ? " +
+                        "WHERE code = ?",
+                quantity,
+                code
+        );
+
+        if(executed > 0){
+            return findByCode(code);
+        } else {
+            return Optional.empty();
+        }
+    }
+
 
     @Override
     public Optional<Hardware> findByCode(String  code) {

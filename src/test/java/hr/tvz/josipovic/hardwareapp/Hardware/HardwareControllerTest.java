@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
@@ -102,6 +103,28 @@ class HardwareControllerTest {
                 .andExpect(jsonPath("$.name").value(hw.getName()))
                 .andExpect(jsonPath("$.code").value(hw.getCode()))
                 .andExpect(jsonPath("$.price").value(hw.getPrice()));
+    }
+
+    @Test
+    void insertInvalidHardware() throws Exception {
+        String jwt = loginAsAdmin();
+        HardwareCommand hw = new HardwareCommand();
+        hw.setCode("44444444");
+        hw.setName("new hw");
+        hw.setPrice(4444.);
+        hw.setStock(4);
+        hw.setType(Type.MBO);
+
+
+        mockMvc.perform(
+                        post("/hardware")
+                                .header("Authorization", "Bearer " + jwt)
+                                .with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(hw))
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isBadRequest());
     }
 
 

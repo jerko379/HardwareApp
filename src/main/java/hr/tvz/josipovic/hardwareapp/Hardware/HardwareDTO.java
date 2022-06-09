@@ -11,16 +11,10 @@ public class HardwareDTO {
     private Double price;
     private String code;
 
-    public HardwareDTO(String name, Double price,String code) {
-        this.code=code;
+
+    public HardwareDTO(String name, Double price, String code) {
         this.name = name;
         this.price = price;
+        this.code = code;
     }
-
-
-
-
-
-
-
 }

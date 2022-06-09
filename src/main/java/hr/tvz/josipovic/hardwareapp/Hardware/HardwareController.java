@@ -1,6 +1,7 @@
 package hr.tvz.josipovic.hardwareapp.Hardware;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -8,10 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
-@RequestMapping("hardware")
+@RequestMapping(value = "hardware")
 @CrossOrigin(origins = "http://localhost:4200")
 public class HardwareController {
+
+
 
     private final HardwareServ hardwareService;
 
@@ -53,9 +58,11 @@ public class HardwareController {
 
 
 
+
     @Secured({"ROLE_ADMIN"})
-    @PostMapping
-    public ResponseEntity<HardwareDTO> insertHardware(@Valid @RequestBody final HardwareCommand cmd) {
+    @PostMapping(produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<HardwareDTO> insertHardware(@Valid @RequestBody  final HardwareCommand cmd) {
         return hardwareService.insert(cmd)
                 .map(
                         hardwareDTO -> ResponseEntity.status(HttpStatus.CREATED).body(hardwareDTO)
@@ -70,6 +77,16 @@ public class HardwareController {
     @PutMapping("/{code}")
     public ResponseEntity<HardwareDTO> updateHardware(@PathVariable String code, @Valid @RequestBody final HardwareCommand updateHardwareCommand){
         return hardwareService.update(code, updateHardwareCommand)
+                .map(ResponseEntity::ok)
+                .orElseGet(
+                        () -> ResponseEntity.notFound().build()
+                );
+    }
+
+    @Secured({"ROLE_ADMIN", "ROLE_UPDATER"})
+    @PutMapping(value = "/{code}", params = "quantity")
+    public ResponseEntity<HardwareDTO> updateQuantity(@PathVariable String code, @RequestParam Integer quantity){
+        return hardwareService.updateQuantity(code,quantity)
                 .map(ResponseEntity::ok)
                 .orElseGet(
                         () -> ResponseEntity.notFound().build()

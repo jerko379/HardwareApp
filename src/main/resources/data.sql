@@ -1,4 +1,5 @@
 
+
 insert into hardware (code, name, tip, price, quantity)
 values ('NRTX3080', 'Nvidia RTX 3080', 'GPU', 2000, 6);
 
